@@ -1,0 +1,27 @@
+CREATE TABLESPACE CURSOS DATAFILE
+'C:\PARCIAL 1\courses1.dbf' SIZE 50M,
+'C:\PARCIAL 1\courses2.dbf' SIZE 50M;
+
+CREATE PROFILE admin LIMIT 
+  SESSIONS_PER_USER                 2   --
+  IDLE_TIME                        15   -- minutos 
+  FAILED_LOGIN_ATTEMPTS             3   --
+  PASSWORD_LIFE_TIME               40;  -- dias
+  
+CREATE USER juancamilocarmona
+IDENTIFIED BY juancamilocarmona
+DEFAULT TABLESPACE CURSOS
+QUOTA UNLIMITED ON CURSOS
+PROFILE admin;
+
+GRANT CONNECT TO juancamilocarmona;
+
+CREATE TABLE COURSES
+(id INT PRIMARY KEY,
+  nombre  VARCHAR2(255),
+  código VARCHAR2(255) ,
+  start_data date,
+  date_end date,
+  CONSTRAINT código CHECK (código IN ('Computación', 'Informática', 'Química', 'Historia', 'Zoología')));
+
+
